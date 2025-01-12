@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "objectively",
+  "version": "${version}",
+  "name": "Objectively",
+  "description": "Adds more features to scoreboard objectives",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/objectively/icon.png",
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "com.github.tatercertified.objectively.Objectively"
+    ]
+  },
+  "mixins": [
+    "objectively.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
