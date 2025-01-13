@@ -29,6 +29,7 @@ public class Objectively implements ModInitializer {
     @Override
     public void onInitialize() {
         Command.register();
+        Objectives.init();
         ServerLifecycleEvents.SERVER_STARTING.register(this::loadObjectives);
 
         ServerPlayConnectionEvents.JOIN.register((serverPlayNetworkHandler, packetSender, minecraftServer) -> {

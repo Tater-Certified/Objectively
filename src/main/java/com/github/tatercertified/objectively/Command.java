@@ -18,8 +18,7 @@ public class Command {
                     .requires(ServerCommandSource::isExecutedByPlayer)
                     .requires(source -> source.hasPermissionLevel(4))
                     .then(argument("objective", ScoreboardObjectiveArgumentType.scoreboardObjective())
-                            .then(argument("assign_default", BoolArgumentType.bool()))
-                            .executes(Command::setDefault)));
+                            .then(argument("assign_default", BoolArgumentType.bool()).executes(Command::setDefault))));
         });
     }
 
@@ -32,6 +31,6 @@ public class Command {
             Objectively.objectivesOnJoin.remove(objective);
         }
         Objectively.saveObjectives();
-        return 1;
+        return 0;
     }
 }

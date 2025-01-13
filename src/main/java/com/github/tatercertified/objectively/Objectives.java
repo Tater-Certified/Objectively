@@ -11,4 +11,6 @@ public class Objectives {
     public static boolean notHaveObjective(ScoreHolder player, Scoreboard scoreboard, ScoreboardObjective objective) {
         return scoreboard.getScore(player, objective) == null;
     }
+
+    public static void init(){}
 }
