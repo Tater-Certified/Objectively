@@ -11,7 +11,6 @@ import net.minecraft.scoreboard.ScoreboardCriterion;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -40,10 +39,10 @@ public abstract class ServerPlayerEntityCriteriaMixin extends PlayerEntity {
 
     @Shadow public ServerPlayNetworkHandler networkHandler;
 
-    @Shadow public abstract ServerWorld getServerWorld();
+    @Shadow public abstract ServerWorld getWorld();
 
-    public ServerPlayerEntityCriteriaMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile) {
-        super(world, pos, yaw, gameProfile);
+    public ServerPlayerEntityCriteriaMixin(World world, GameProfile gameProfile) {
+        super(world, gameProfile);
     }
 
     @Inject(method = "playerTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;getHealth()F", ordinal = 3), cancellable = true)
@@ -53,7 +52,7 @@ public abstract class ServerPlayerEntityCriteriaMixin extends PlayerEntity {
             this.syncedExperience = this.totalExperience;
             this.networkHandler.sendPacket(new ExperienceBarUpdateS2CPacket(this.experienceProgress, this.totalExperience, this.experienceLevel));
         }
-        if (this.age % this.getServerWorld().getGameRules().getInt(Objectively.SCOREBOARD_QUERY_FREQ) == 0) {
+        if (this.age % this.getWorld().getGameRules().getInt(Objectively.SCOREBOARD_QUERY_FREQ) == 0) {
             // These are the vanilla ones
             if (this.getHealth() + this.getAbsorptionAmount() != this.lastHealthScore) {
                 this.lastHealthScore = this.getHealth() + this.getAbsorptionAmount();
